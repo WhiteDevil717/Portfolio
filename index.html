@@ -117,7 +117,7 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
+            width: 92%;
             max-width: 650px;
             z-index: 100;
         }
@@ -169,10 +169,14 @@
 
         .settings-nav-links {
             display: flex;
-            justify-content: space-between;
-            gap: 4px;
+            justify-content: flex-start;
+            gap: 6px;
             overflow-x: auto;
             padding: 4px 0;
+            scrollbar-width: none; /* Firefox */
+        }
+        .settings-nav-links::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
         }
 
         .nav-link {
@@ -190,6 +194,7 @@
             align-items: center;
             gap: 6px;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .nav-link i {
@@ -211,11 +216,11 @@
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
 
         section {
-            padding: 120px 0 60px;
+            padding: 110px 0 50px;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -240,7 +245,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-top: 140px;
+            padding-top: 130px;
         }
 
         .intro-text {
@@ -265,12 +270,13 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.3rem, 5.5vw, 4.5rem);
             font-weight: 800;
             margin-bottom: 24px;
             color: #ffffff;
-            line-height: 1.1;
+            line-height: 1.15;
             letter-spacing: -1px;
+            word-break: break-word;
         }
 
         h1 span { 
@@ -279,7 +285,7 @@
         }
 
         .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
             max-width: 700px;
             line-height: 1.8;
@@ -288,9 +294,9 @@
 
         /* --- Section Headers --- */
         .section-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #fff;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -298,14 +304,14 @@
             letter-spacing: 1px;
         }
         
-        .section-title i { color: var(--accent-cyan); font-size: 1.5rem; text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+        .section-title i { color: var(--accent-cyan); font-size: 1.4rem; text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
 
         /* --- Holographic Glass Cards --- */
         .glass-card {
             background: var(--bg-panel);
             border: 1px solid var(--border-light);
             border-radius: 16px;
-            padding: 35px;
+            padding: 30px;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -326,7 +332,7 @@
         .glass-card:hover {
             border-color: var(--border-glow);
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(59, 130, 246, 0.2);
-            transform: translateY(-6px);
+            transform: translateY(-4px);
         }
 
         .glass-card:hover::before {
@@ -334,8 +340,8 @@
         }
 
         .glass-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 15px;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
             color: #fff;
             font-weight: 600;
             display: flex;
@@ -348,8 +354,8 @@
         /* --- Skills Grid --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .skill-tag {
@@ -373,11 +379,12 @@
             transform: scale(1.05);
         }
 
-        /* --- Gallery Grid --- */
+        /* --- Gallery Grid (Fixed for Mobile Overflow) --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
         }
 
         .media-card {
@@ -385,18 +392,19 @@
             border: 1px solid var(--border-light);
             border-radius: 16px;
             overflow: hidden;
+            width: 100%;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .media-card:hover {
             border-color: var(--border-glow);
-            transform: translateY(-6px);
+            transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.2);
         }
 
         .media-container {
             width: 100%;
-            height: 260px;
+            height: 240px;
             background: #000;
             overflow: hidden;
             position: relative;
@@ -406,6 +414,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
             transition: transform 0.6s ease;
         }
 
@@ -415,27 +424,27 @@
         }
 
         .media-info {
-            padding: 24px;
+            padding: 20px;
             border-top: 1px solid var(--border-light);
         }
 
         .media-info h4 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: #fff;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
         }
 
         .media-info p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         /* --- Contact Section --- */
         .contact-wrapper {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
@@ -445,12 +454,13 @@
             background: var(--bg-panel);
             border: 1px solid var(--border-light);
             border-radius: 12px;
-            padding: 24px;
+            padding: 20px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 500;
             transition: all 0.3s ease;
+            word-break: break-all;
         }
 
         .contact-link:hover {
@@ -461,14 +471,15 @@
         }
 
         .contact-icon-box {
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
             background: rgba(59, 130, 246, 0.1);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 16px;
+            margin-right: 14px;
             transition: all 0.3s ease;
         }
 
@@ -479,7 +490,7 @@
         }
 
         .contact-icon-box i {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: var(--accent-cyan);
             transition: color 0.3s ease;
         }
@@ -488,14 +499,16 @@
             color: var(--bg-dark);
         }
 
-        /* Responsive Design */
+        /* Responsive Tweaks for Mobile */
         @media (max-width: 768px) {
             .settings-nav-wrapper {
-                width: 95%;
-                top: 10px;
+                width: 94%;
+                top: 12px;
             }
-            .nav-link { font-size: 0.75rem; padding: 6px 10px; }
-            h1 { font-size: 2.2rem; }
+            .nav-link { font-size: 0.78rem; padding: 6px 10px; }
+            h1 { font-size: 2rem; }
+            .container { padding: 0 14px; }
+            .glass-card { padding: 22px; }
         }
     </style>
 </head>
@@ -543,9 +556,9 @@
         <section id="skills">
             <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Academic & Technical Profile</h2>
             
-            <div class="glass-card" style="margin-bottom: 30px;">
+            <div class="glass-card" style="margin-bottom: 25px;">
                 <h3 style="color: #fff;">Diploma in Mechanical Engineering</h3>
-                <div style="color: var(--accent-cyan); margin-bottom: 12px; font-weight: 500;">Gujarat Technological University (GTU)</div>
+                <div style="color: var(--accent-cyan); margin-bottom: 10px; font-weight: 500;">Gujarat Technological University (GTU)</div>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">Rigorous academic foundation in machine design, material science, fabrication technology, and manufacturing engineering principles.</p>
             </div>
 
@@ -588,7 +601,7 @@
                 
                 <!-- Video Item -->
                 <div class="media-card" style="grid-column: 1 / -1;">
-                    <div class="media-container" style="height: 500px;">
+                    <div class="media-container" style="height: 320px;">
                         <video autoplay loop muted playsinline>
                             <source src="PTC Creo 2026.08.01 - 20.26.59.01.mp4" type="video/mp4">
                             Your browser does not support the video tag.
@@ -646,7 +659,7 @@
             <div class="skills-grid">
                 <div class="glass-card">
                     <div style="color: var(--accent-cyan); font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">Capstone Project</div>
-                    <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: #fff;">Convex Milling Machine</h3>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: #fff;">Convex Milling Machine</h3>
                     <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">
                         Collaborated to conceptualize, design, and model a specialized convex milling machine. Executed the complete 3D CAD modeling and mechanism design to ensure precise tooling paths and structural integrity.
                     </p>
@@ -657,7 +670,7 @@
 
                 <div class="glass-card">
                     <div style="color: var(--accent-cyan); font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">Advanced CAD Modeling</div>
-                    <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: #fff;">V6 Turbocharged Engine</h3>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: #fff;">V6 Turbocharged Engine</h3>
                     <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">
                         Engineered a highly detailed V6 Engine assembly from foundational sketches to final 3D model. Designed internal components including pistons, crankshafts, valvetrains, and fluid manifolds.
                     </p>
@@ -676,24 +689,24 @@
                 <a href="mailto:ksamanta0717@gmail.com" class="contact-link">
                     <div class="contact-icon-box"><i class="fas fa-envelope"></i></div>
                     <div>
-                        <div style="font-size: 0.85rem; color: var(--text-muted);">Email</div>
-                        <div>ksamanta0717@gmail.com</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Email</div>
+                        <div style="font-size: 0.95rem;">ksamanta0717@gmail.com</div>
                     </div>
                 </a>
 
                 <a href="#" target="_blank" class="contact-link">
                     <div class="contact-icon-box"><i class="fab fa-linkedin-in"></i></div>
                     <div>
-                        <div style="font-size: 0.85rem; color: var(--text-muted);">Professional Network</div>
-                        <div>LinkedIn (Pending)</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Professional Network</div>
+                        <div style="font-size: 0.95rem;">LinkedIn (Pending)</div>
                     </div>
                 </a>
 
                 <a href="https://instagram.com/kuldeep.samanta" target="_blank" class="contact-link">
                     <div class="contact-icon-box"><i class="fab fa-instagram"></i></div>
                     <div>
-                        <div style="font-size: 0.85rem; color: var(--text-muted);">Social Portfolio</div>
-                        <div>@kuldeep.samanta</div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Social Portfolio</div>
+                        <div style="font-size: 0.95rem;">@kuldeep.samanta</div>
                     </div>
                 </a>
             </div>
