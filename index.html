@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuldeep Samanta | Mechanical CAD & Design Engineer</title>
+    <title>Kuldeep Samanta | Mechanical CAD Engineer</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Professional Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            /* Industrial Mechanical Color Palette */
-            --bg-carbon: #0d1117;
-            --bg-metal-dark: #161b22;
-            --metal-border: #30363d;
-            --accent-steel: #58a6ff;
-            --accent-amber: #e3b341;
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
+            --bg-dark: #070b14;        /* Deep futuristic void */
+            --bg-panel: rgba(15, 23, 42, 0.7); /* Frosted holographic slate */
+            --border-light: rgba(59, 130, 246, 0.2);
+            --border-glow: rgba(59, 130, 246, 0.6);
+            --accent-blue: #3b82f6;    /* Futuristic HUD blue */
+            --accent-cyan: #06b6d4;    /* Cybernetic cyan */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --nav-bg: rgba(7, 11, 20, 0.85);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         html {
@@ -29,372 +34,524 @@
         }
 
         body {
-            background-color: var(--bg-carbon);
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Abstract Mechanical Background Elements */
+        h1, h2, h3, h4, .nav-link, .settings-title {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* --- Futuristic HUD Grid & Particle Overlay --- */
         body::before {
             content: "";
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(48, 54, 61, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(48, 54, 61, 0.2) 1px, transparent 1px);
-            background-size: 50px 50px;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: -2;
             pointer-events: none;
         }
 
-        /* Spinning Gear Animations */
-        @keyframes spinRight { 100% { transform: rotate(360deg); } }
-        @keyframes spinLeft { 100% { transform: rotate(-360deg); } }
-        
-        .bg-gear {
+        body::after {
+            content: "";
             position: fixed;
-            color: rgba(48, 54, 61, 0.15);
-            z-index: -1;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.07), transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.07), transparent 40%);
+            z-index: -3;
             pointer-events: none;
         }
-        
-        .gear-1 { top: -5%; left: -5%; font-size: 40vw; animation: spinRight 60s linear infinite; }
-        .gear-2 { bottom: -10%; right: -5%; font-size: 30vw; animation: spinLeft 50s linear infinite; }
-        .gear-3 { top: 40%; right: 10%; font-size: 15vw; animation: spinRight 40s linear infinite; color: rgba(88, 166, 255, 0.03); }
 
+        /* --- Cybernetic Loader --- */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--bg-dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent-cyan);
+            border-bottom-color: var(--accent-blue);
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .loader-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--accent-cyan);
+            animation: pulseGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulseGlow {
+            0% { opacity: 0.4; text-shadow: 0 0 5px rgba(6, 182, 212, 0); }
+            100% { opacity: 1; text-shadow: 0 0 15px rgba(6, 182, 212, 0.8); }
+        }
+        .hide-loader { opacity: 0; visibility: hidden; }
+
+        /* --- Futuristic Settings Form Navigation Bar --- */
+        .settings-nav-wrapper {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 650px;
+            z-index: 100;
+        }
+
+        .settings-form-container {
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 8px 16px;
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .settings-form-container:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6), 0 0 25px rgba(6, 182, 212, 0.25);
+        }
+
+        .settings-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 1px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .control-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .settings-nav-links {
+            display: flex;
+            justify-content: space-between;
+            gap: 4px;
+            overflow-x: auto;
+            padding: 4px 0;
+        }
+
+        .nav-link {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.82rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .nav-link i {
+            color: var(--accent-blue);
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+            background: rgba(59, 130, 246, 0.12);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-link:hover i, .nav-link.active i {
+            color: var(--accent-cyan);
+        }
+
+        /* --- Main Layout Sections --- */
         .container {
-            max-width: 1150px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        /* Hero Section */
+        section {
+            padding: 120px 0 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.3s; }
+        section:nth-child(3) { animation-delay: 0.4s; }
+        section:nth-child(4) { animation-delay: 0.5s; }
+        section:nth-child(5) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Header / Home --- */
         header {
-            min-height: 90vh;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 140px;
+        }
+
+        .intro-text {
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 60px 0;
-            position: relative;
+            gap: 12px;
         }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent-steel);
-            border: 1px solid rgba(88, 166, 255, 0.3);
-            padding: 8px 18px;
-            border-radius: 4px; /* Harder mechanical edges */
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-steel);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-steel);
+        
+        .intro-text::before {
+            content: "";
+            width: 40px;
+            height: 2px;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan);
         }
 
         h1 {
-            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 800;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             color: #ffffff;
+            line-height: 1.1;
             letter-spacing: -1px;
         }
 
-        .hero-title-highlight {
-            color: var(--accent-amber);
-            text-shadow: 0 0 15px rgba(227, 179, 65, 0.3);
+        h1 span { 
+            color: var(--accent-cyan);
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
         }
 
         .subtitle {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
             max-width: 700px;
-            margin: 0 auto 36px;
+            line-height: 1.8;
+            font-weight: 300;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 32px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary {
-            background: var(--accent-amber);
-            color: #000;
-            box-shadow: 0 4px 15px rgba(227, 179, 65, 0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            background: #f0c356;
-            box-shadow: 0 6px 20px rgba(227, 179, 65, 0.4);
-        }
-
-        .btn-secondary {
-            background: var(--bg-metal-dark);
-            color: var(--accent-steel);
-            border: 1px solid var(--accent-steel);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(88, 166, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Section Styling */
-        section {
-            padding: 90px 0;
-            border-top: 1px dashed var(--metal-border);
-        }
-
-        .section-header {
-            margin-bottom: 50px;
-            position: relative;
-        }
-
+        /* --- Section Headers --- */
         .section-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
+        
+        .section-title i { color: var(--accent-cyan); font-size: 1.5rem; text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
 
-        .section-title i {
-            color: var(--accent-steel);
-        }
-
-        /* Industrial Cards */
+        /* --- Holographic Glass Cards --- */
         .glass-card {
-            background: var(--bg-metal-dark);
-            border: 1px solid var(--metal-border);
-            border-left: 4px solid var(--accent-steel);
-            border-radius: 4px;
-            padding: 30px;
-            transition: all 0.3s ease;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 35px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .glass-card::before {
-            content: '';
+            content: "";
             position: absolute;
-            top: 0; right: 0;
-            width: 30px; height: 30px;
-            background: linear-gradient(225deg, var(--bg-carbon) 50%, var(--metal-border) 50%);
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-steel);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(59, 130, 246, 0.2);
+            transform: translateY(-6px);
         }
 
-        /* Skills Grid */
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        .glass-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: #fff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .glass-card h3 i { color: var(--accent-cyan); }
+
+        /* --- Skills Grid --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .skill-tag {
             display: inline-block;
-            background: var(--bg-carbon);
-            border: 1px solid var(--metal-border);
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.2);
             padding: 6px 14px;
-            border-radius: 2px;
+            border-radius: 20px;
             font-size: 0.85rem;
-            margin: 4px;
+            font-weight: 500;
+            margin: 4px 4px 4px 0;
             color: var(--text-main);
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .skill-tag:hover {
-            border-color: var(--accent-amber);
-            color: var(--accent-amber);
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+            transform: scale(1.05);
         }
 
-        /* Media & CAD Gallery Section */
+        /* --- Gallery Grid --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 30px;
         }
 
         .media-card {
-            background: var(--bg-metal-dark);
-            border-radius: 4px;
-            border: 1px solid var(--metal-border);
+            background: var(--bg-panel);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .media-card:hover {
-            border-color: var(--accent-amber);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+            border-color: var(--border-glow);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.2);
         }
 
         .media-container {
             width: 100%;
-            height: 280px;
+            height: 260px;
             background: #000;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
-            border-bottom: 2px solid var(--metal-border);
+            position: relative;
         }
 
-        .media-container img {
+        .media-container img, .media-container video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
 
         .media-card:hover .media-container img {
             transform: scale(1.05);
+            opacity: 0.95;
         }
 
         .media-info {
-            padding: 20px;
+            padding: 24px;
+            border-top: 1px solid var(--border-light);
         }
 
         .media-info h4 {
             font-size: 1.15rem;
-            margin-bottom: 6px;
             color: #fff;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .media-info p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
+            line-height: 1.6;
         }
 
-        /* Contact Section */
-        .contact-box {
-            text-align: center;
-            padding: 60px 20px;
-            background: var(--bg-metal-dark);
-            border: 1px solid var(--metal-border);
-            border-top: 4px solid var(--accent-amber);
-            border-radius: 4px;
+        /* --- Contact Section --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .contact-email {
-            display: inline-flex;
+        .contact-link {
+            display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #000;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 24px;
+            color: var(--text-main);
             text-decoration: none;
-            background: var(--accent-amber);
-            padding: 14px 32px;
-            border-radius: 4px;
-            margin-top: 24px;
+            font-size: 1.05rem;
+            font-weight: 500;
             transition: all 0.3s ease;
-            text-transform: uppercase;
         }
 
-        .contact-email:hover {
-            background: #f0c356;
-            transform: scale(1.05);
+        .contact-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
         }
 
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--metal-border);
-            background: var(--bg-carbon);
-            position: relative;
-            z-index: 10;
+        .contact-icon-box {
+            width: 45px;
+            height: 45px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            transition: all 0.3s ease;
         }
 
+        .contact-link:hover .contact-icon-box {
+            background: var(--accent-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        .contact-icon-box i {
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover .contact-icon-box i {
+            color: var(--bg-dark);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            h1 { font-size: 2.4rem; }
-            .gallery-grid { grid-template-columns: 1fr; }
-            .media-container { height: 220px; }
-            .btn-group { flex-direction: column; }
+            .settings-nav-wrapper {
+                width: 95%;
+                top: 10px;
+            }
+            .nav-link { font-size: 0.75rem; padding: 6px 10px; }
+            h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Spinning Background Gears -->
-    <i class="fas fa-cog bg-gear gear-1"></i>
-    <i class="fas fa-cogs bg-gear gear-2"></i>
-    <i class="fas class fa-cog bg-gear gear-3"></i>
+    <!-- Cybernetic Loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <div class="loader-logo">SYS.INIT // KULDEEP.CAD</div>
+    </div>
+
+    <!-- Top Navigator inside a Futuristic Settings Form Panel -->
+    <div class="settings-nav-wrapper">
+        <div class="settings-form-container">
+            <div class="settings-header-bar">
+                <span>CONFIG_PANEL // v3.4.2</span>
+                <div class="window-controls">
+                    <div class="control-dot dot-red"></div>
+                    <div class="control-dot dot-yellow"></div>
+                    <div class="control-dot dot-green"></div>
+                </div>
+            </div>
+            <nav class="settings-nav-links">
+                <a href="#home" class="nav-link"><i class="fas fa-terminal"></i> Home</a>
+                <a href="#skills" class="nav-link"><i class="fas fa-microchip"></i> Expertise</a>
+                <a href="#gallery" class="nav-link"><i class="fas fa-cubes"></i> Gallery</a>
+                <a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> Projects</a>
+                <a href="#contact" class="nav-link"><i class="fas fa-satellite-dish"></i> Contact</a>
+            </nav>
+        </div>
+    </div>
 
     <div class="container">
-        <!-- Hero Section -->
-        <header>
-            <div class="hero-content">
-                <div class="status-badge">
-                    <span class="status-dot"></span> System Ready • Available for Entry-Level Roles
-                </div>
-                <h1>Hi, I'm <span class="hero-title-highlight">Kuldeep Samanta</span></h1>
-                <p class="subtitle">Mechanical Engineering student specializing in 2D Drafting, 3D Component Modeling, Complex Assemblies, Machining Processes, and Sheet Metal Design.</p>
-                <div class="btn-group">
-                    <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Initialize Contact</a>
-                    <a href="#gallery" class="btn btn-secondary"><i class="fas fa-drafting-compass"></i> View CAD Renders</a>
-                </div>
-            </div>
-        </header>
-
-        <!-- Education -->
-        <section>
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-university"></i> Academic Blueprint</h2>
-            </div>
-            <div class="glass-card">
-                <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: var(--accent-steel);">Diploma in Mechanical Engineering</h3>
-                <h4 style="color: var(--accent-amber); margin-bottom: 12px; font-weight: 500;">Gujarat Technological University (GTU)</h4>
-                <p style="color: var(--text-muted);">Comprehensive academic training in machine design, fabrication technology, manufacturing engineering, material selection, and computer-aided engineering (CAE).</p>
-            </div>
+        
+        <!-- HOME SECTION -->
+        <section id="home">
+            <header>
+                <div class="intro-text">Mechanical CAD Engineer</div>
+                <h1>Hi, I am <br>Kuldeep <span>Samanta</span></h1>
+                <p class="subtitle">Specializing in precision 2D drafting, complex 3D component modeling, and advanced assembly design. Dedicated to optimizing manufacturing processes through robust computer-aided engineering.</p>
+            </header>
         </section>
 
-        <!-- Technical Skills -->
-        <section>
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-tools"></i> Technical Specifications</h2>
+        <!-- EXPERTISE SECTION -->
+        <section id="skills">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Academic & Technical Profile</h2>
+            
+            <div class="glass-card" style="margin-bottom: 30px;">
+                <h3 style="color: #fff;">Diploma in Mechanical Engineering</h3>
+                <div style="color: var(--accent-cyan); margin-bottom: 12px; font-weight: 500;">Gujarat Technological University (GTU)</div>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Rigorous academic foundation in machine design, material science, fabrication technology, and manufacturing engineering principles.</p>
             </div>
+
             <div class="skills-grid">
                 <div class="glass-card">
-                    <h3 style="color: var(--accent-steel); margin-bottom: 16px;"><i class="fas fa-laptop-code"></i> CAD / CAM Software</h3>
+                    <h3><i class="fas fa-laptop-code"></i> Software Proficiency</h3>
                     <div>
                         <span class="skill-tag">PTC Creo</span>
                         <span class="skill-tag">SolidWorks</span>
@@ -403,137 +560,177 @@
                 </div>
 
                 <div class="glass-card">
-                    <h3 style="color: var(--accent-amber); margin-bottom: 16px;"><i class="fas fa-vector-square"></i> Design Expertise</h3>
+                    <h3><i class="fas fa-pen-nib"></i> Design Capabilities</h3>
                     <div>
                         <span class="skill-tag">2D Drafting</span>
-                        <span class="skill-tag">3D Modeling</span>
-                        <span class="skill-tag">Assembly Design</span>
-                        <span class="skill-tag">Creo Sheet Metal</span>
-                        <span class="skill-tag">Creo Mechanisms</span>
+                        <span class="skill-tag">3D Solid Modeling</span>
+                        <span class="skill-tag">Complex Assemblies</span>
+                        <span class="skill-tag">Sheet Metal Design</span>
                     </div>
                 </div>
 
                 <div class="glass-card">
-                    <h3 style="color: var(--accent-steel); margin-bottom: 16px;"><i class="fas fa-cogs"></i> Mechanical Focus</h3>
+                    <h3><i class="fas fa-industry"></i> Engineering Focus</h3>
                     <div>
                         <span class="skill-tag">Fabrication Technology</span>
                         <span class="skill-tag">Machining Processes</span>
                         <span class="skill-tag">DFM & DFA</span>
-                        <span class="skill-tag">Mechanism Simulation</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Interactive CAD Showcase Gallery (Images & Videos) -->
+        <!-- GALLERY SECTION -->
         <section id="gallery">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-cubes"></i> 3D CAD Renders Showcase</h2>
-                <p style="color: var(--text-muted); margin-top: 6px;">Engineered visual models and detailed sub-assemblies.</p>
-            </div>
-
+            <h2 class="section-title"><i class="fas fa-photo-video"></i> Engineering Visualizations</h2>
+            
             <div class="gallery-grid">
                 
-                <!-- Media Item 1: V6 Engine Render / Front View -->
-                <div class="media-card">
-                    <div class="media-container">
-                        <img src="Front View.jpg" alt="V6 Turbo Engine 3D Model Front View">
+                <!-- Video Item -->
+                <div class="media-card" style="grid-column: 1 / -1;">
+                    <div class="media-container" style="height: 500px;">
+                        <video autoplay loop muted playsinline>
+                            <source src="PTC Creo 2026.08.01 - 20.26.59.01.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
+                    <div class="media-info">
+                        <h4>V6 Engine Assembly Simulation</h4>
+                        <p>Dynamic visualization of the V6 engine structural model and solid-to-wireframe transition engineered within the PTC Creo environment.</p>
+                    </div>
+                </div>
+
+                <!-- Image 1 -->
+                <div class="media-card">
+                    <div class="media-container"><img src="Front View.jpg" alt="Front View"></div>
                     <div class="media-info">
                         <h4>V6 Turbo Engine Model</h4>
-                        <p>Detailed 3D engine assembly built with complex geometry and mechanical alignment, featuring twin yellow intake filters.</p>
+                        <p>Detailed 3D engine assembly built with complex geometry and precise mechanical tolerances.</p>
                     </div>
                 </div>
 
-                <!-- Media Item 2: V6 Engine / Internal Camshaft Detail -->
+                <!-- Image 2 -->
                 <div class="media-card">
-                    <div class="media-container">
-                        <img src="1.png" alt="V6 Engine Internal Camshaft Drive Detail">
-                    </div>
+                    <div class="media-container"><img src="1.png" alt="Internal Drive"></div>
                     <div class="media-info">
-                        <h4>V6 Internal Valvetrain Drive</h4>
-                        <p>Transparent cross-section view of the internal valvetrain, camshafts, and block detailing tight tolerances.</p>
+                        <h4>Internal Valvetrain Architecture</h4>
+                        <p>Transparent cross-section view illustrating the internal valvetrain and camshaft synchronization.</p>
                     </div>
                 </div>
 
-                <!-- Media Item 3: V6 Engine / Top Intake Assembly -->
+                <!-- Image 3 -->
                 <div class="media-card">
-                    <div class="media-container">
-                        <img src="2.png" alt="V6 Engine Top Intake Assembly">
-                    </div>
+                    <div class="media-container"><img src="2.png" alt="Top Intake"></div>
                     <div class="media-info">
-                        <h4>V6 Top Intake Manifold Assembly</h4>
-                        <p>Top profile view highlighting the complex intake manifold routing, filters, and clear cylinder head covers.</p>
+                        <h4>Top Intake Manifold Routing</h4>
+                        <p>Top profile view highlighting the complex aerodynamic routing of the intake manifold.</p>
                     </div>
                 </div>
 
-                <!-- Media Item 4: V6 Engine / Exhaust Side Detail -->
+                <!-- Image 4 -->
                 <div class="media-card">
-                    <div class="media-container">
-                        <img src="Back View.jpg" alt="V6 Engine Exhaust Side Detail">
-                    </div>
+                    <div class="media-container"><img src="Back View.jpg" alt="Exhaust Detail"></div>
                     <div class="media-info">
-                        <h4>V6 Exhaust Side Detail</h4>
-                        <p>Rear and side aspect focusing on the tubular exhaust header piping and structural transparency of the engine block.</p>
+                        <h4>Exhaust Header Configuration</h4>
+                        <p>Rear aspect focusing on the optimized tubular exhaust header piping and flange mounts.</p>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <!-- Featured Projects List -->
-        <section>
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-project-diagram"></i> Engineering Projects</h2>
-            </div>
+        <!-- PROJECTS SECTION -->
+        <section id="projects">
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Key Projects</h2>
+            
             <div class="skills-grid">
-                
                 <div class="glass-card">
-                    <span style="color: var(--accent-amber); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Capstone Project</span>
-                    <h3 style="font-size: 1.4rem; margin: 8px 0 12px; color: #fff;">Convex Milling Machine</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 16px;">
-                        Collaborated to concept, design, and model a specialized convex milling machine. Handled the complete 3D CAD modeling and mechanism design to ensure proper tooling path and operational mechanics.
+                    <div style="color: var(--accent-cyan); font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">Capstone Project</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: #fff;">Convex Milling Machine</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">
+                        Collaborated to conceptualize, design, and model a specialized convex milling machine. Executed the complete 3D CAD modeling and mechanism design to ensure precise tooling paths and structural integrity.
                     </p>
-                    <div>
-                        <span class="skill-tag">PTC Creo</span>
-                        <span class="skill-tag">3D Assembly</span>
-                        <span class="skill-tag">Milling Technology</span>
+                    <div style="margin-top: auto;">
+                        <span class="skill-tag">PTC Creo</span> <span class="skill-tag">Milling Technology</span>
                     </div>
                 </div>
 
                 <div class="glass-card">
-                    <span style="color: var(--accent-steel); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Advanced Modeling</span>
-                    <h3 style="font-size: 1.4rem; margin: 8px 0 12px; color: #fff;">V6 Turbocharged Engine</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 16px;">
-                        Designed a detailed V6 Engine assembly from the ground up. Engineered internal components including pistons, crankshaft, valvetrain, and manifolds with high precision tolerances.
+                    <div style="color: var(--accent-cyan); font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">Advanced CAD Modeling</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: #fff;">V6 Turbocharged Engine</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">
+                        Engineered a highly detailed V6 Engine assembly from foundational sketches to final 3D model. Designed internal components including pistons, crankshafts, valvetrains, and fluid manifolds.
                     </p>
                     <div>
-                        <span class="skill-tag">SolidWorks / Creo</span>
-                        <span class="skill-tag">Engine CAD</span>
-                        <span class="skill-tag">Complex Assemblies</span>
+                        <span class="skill-tag">SolidWorks</span> <span class="skill-tag">Assembly Design</span>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <div class="contact-box">
-                <h2 style="font-size: 2.2rem; margin-bottom: 12px; color: #fff;">Transmission Link Open</h2>
-                <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto;">
-                    I am actively seeking entry-level mechanical engineering, drafting, and CAD design opportunities. Let's build something functional.
-                </p>
-                <a href="mailto:ksamanta0717@gmail.com" class="contact-email">
-                    <i class="fas fa-envelope"></i> ksamanta0717@gmail.com
+        <!-- CONTACT SECTION -->
+        <section id="contact" style="padding-bottom: 120px;">
+            <h2 class="section-title"><i class="fas fa-address-card"></i> Get In Touch</h2>
+            
+            <div class="contact-wrapper">
+                <a href="mailto:ksamanta0717@gmail.com" class="contact-link">
+                    <div class="contact-icon-box"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Email</div>
+                        <div>ksamanta0717@gmail.com</div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="contact-link">
+                    <div class="contact-icon-box"><i class="fab fa-linkedin-in"></i></div>
+                    <div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Professional Network</div>
+                        <div>LinkedIn (Pending)</div>
+                    </div>
+                </a>
+
+                <a href="https://instagram.com/kuldeep.samanta" target="_blank" class="contact-link">
+                    <div class="contact-icon-box"><i class="fab fa-instagram"></i></div>
+                    <div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Social Portfolio</div>
+                        <div>@kuldeep.samanta</div>
+                    </div>
                 </a>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer>
-            <p><i class="fas fa-cog fa-spin"></i> &copy; 2026 Kuldeep Samanta. Engineered with Passion & Precision.</p>
-        </footer>
     </div>
+
+    <!-- Script for Loader and Scroll Spy -->
+    <script>
+        // Futuristic Loader logic
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hide-loader');
+            }, 1000);
+        });
+
+        // Highlight active navigation link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 180) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
