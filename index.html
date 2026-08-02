@@ -13,14 +13,14 @@
     <style>
         :root {
             --bg-dark: #070b14;        /* Deep futuristic void */
-            --bg-panel: rgba(15, 23, 42, 0.7); /* Frosted holographic slate */
+            --bg-panel: rgba(15, 23, 42, 0.75); /* Frosted holographic slate */
             --border-light: rgba(59, 130, 246, 0.2);
             --border-glow: rgba(59, 130, 246, 0.6);
             --accent-blue: #3b82f6;    /* Futuristic HUD blue */
             --accent-cyan: #06b6d4;    /* Cybernetic cyan */
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --nav-bg: rgba(7, 11, 20, 0.85);
+            --nav-bg: rgba(7, 11, 20, 0.88);
         }
 
         * {
@@ -43,7 +43,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, .nav-link, .settings-title {
+        h1, h2, h3, h4, .nav-link {
             font-family: 'Montserrat', sans-serif;
         }
 
@@ -69,47 +69,6 @@
             z-index: -3;
             pointer-events: none;
         }
-
-        /* --- Cybernetic Loader --- */
-        #loader {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: var(--bg-dark);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 2px solid rgba(59, 130, 246, 0.1);
-            border-radius: 50%;
-            border-top-color: var(--accent-cyan);
-            border-bottom-color: var(--accent-blue);
-            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-            margin-bottom: 20px;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
-        }
-
-        .loader-logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 4px;
-            color: var(--accent-cyan);
-            animation: pulseGlow 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes pulseGlow {
-            0% { opacity: 0.4; text-shadow: 0 0 5px rgba(6, 182, 212, 0); }
-            100% { opacity: 1; text-shadow: 0 0 15px rgba(6, 182, 212, 0.8); }
-        }
-        .hide-loader { opacity: 0; visibility: hidden; }
 
         /* --- Futuristic Settings Form Navigation Bar --- */
         .settings-nav-wrapper {
@@ -173,10 +132,10 @@
             gap: 6px;
             overflow-x: auto;
             padding: 4px 0;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
         }
         .settings-nav-links::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Edge */
+            display: none;
         }
 
         .nav-link {
@@ -221,22 +180,6 @@
 
         section {
             padding: 110px 0 50px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        section:nth-child(1) { animation-delay: 0.2s; }
-        section:nth-child(2) { animation-delay: 0.3s; }
-        section:nth-child(3) { animation-delay: 0.4s; }
-        section:nth-child(4) { animation-delay: 0.5s; }
-        section:nth-child(5) { animation-delay: 0.6s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* --- Header / Home --- */
@@ -379,7 +322,7 @@
             transform: scale(1.05);
         }
 
-        /* --- Gallery Grid (Fixed for Mobile Overflow) --- */
+        /* --- Gallery Grid & Aspect Ratio Optimization --- */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -402,25 +345,41 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.2);
         }
 
+        /* Natural aspect ratio wrapper for videos and images to eliminate cropping */
         .media-container {
             width: 100%;
-            height: 240px;
             background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
             position: relative;
         }
 
-        .media-container img, .media-container video {
+        /* Specific container for video simulation to keep native aspect ratio container */
+        .video-container {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-height: 550px;
+            background: #000;
+            position: relative;
+        }
+
+        .media-container img, .video-container video {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain; /* Keeps full image/video visible without cropping edges */
             display: block;
+            margin: 0 auto;
             transition: transform 0.6s ease;
         }
 
+        .video-container video {
+            max-height: 550px;
+        }
+
         .media-card:hover .media-container img {
-            transform: scale(1.05);
-            opacity: 0.95;
+            transform: scale(1.02);
         }
 
         .media-info {
@@ -514,17 +473,11 @@
 </head>
 <body>
 
-    <!-- Cybernetic Loader -->
-    <div id="loader">
-        <div class="spinner"></div>
-        <div class="loader-logo">SYS.INIT // KULDEEP.CAD</div>
-    </div>
-
     <!-- Top Navigator inside a Futuristic Settings Form Panel -->
     <div class="settings-nav-wrapper">
         <div class="settings-form-container">
             <div class="settings-header-bar">
-                <span>CONFIG_PANEL // v3.4.2</span>
+                <span>CONFIG_PANEL // v3.5.0</span>
                 <div class="window-controls">
                     <div class="control-dot dot-red"></div>
                     <div class="control-dot dot-yellow"></div>
@@ -599,10 +552,10 @@
             
             <div class="gallery-grid">
                 
-                <!-- Video Item -->
+                <!-- Video Item with full natural aspect ratio container -->
                 <div class="media-card" style="grid-column: 1 / -1;">
-                    <div class="media-container" style="height: 320px;">
-                        <video autoplay loop muted playsinline>
+                    <div class="video-container">
+                        <video autoplay loop muted playsinline controls>
                             <source src="PTC Creo 2026.08.01 - 20.26.59.01.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -714,17 +667,8 @@
 
     </div>
 
-    <!-- Script for Loader and Scroll Spy -->
+    <!-- Scroll Spy Script for Navigation Highlight -->
     <script>
-        // Futuristic Loader logic
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.classList.add('hide-loader');
-            }, 1000);
-        });
-
-        // Highlight active navigation link on scroll
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
